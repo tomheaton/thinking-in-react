@@ -1,11 +1,22 @@
 import {NextPage} from "next";
-import React, {ReactChild} from "react";
+import React, {ReactChild, useState} from "react";
 
 type Product = {
     category: string,
     price: string,
     stocked: boolean,
     name: string
+}
+
+type ProductTableProps = {
+    products: Product[],
+    search: string,
+    filtered: boolean
+}
+
+type SearchBarProps = {
+    setSearch: React.Dispatch<React.SetStateAction<string>>,
+    setFiltered: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const PRODUCTS: Product[] = [
@@ -18,21 +29,25 @@ const PRODUCTS: Product[] = [
 ];
 
 const FilterableProductTable: React.FC = () => {
+
+    const [search, setSearch] = useState<string>("");
+    const [filtered, setFiltered] = useState<boolean>(false);
+
     return (
         <div style={{textAlign: "left"}}>
-            <SearchBar />
-            <ProductTable products={PRODUCTS}/>
+            <SearchBar setSearch={setSearch} setFiltered={setFiltered}/>
+            <ProductTable products={PRODUCTS} search={search} filtered={filtered}/>
         </div>
     );
 };
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<SearchBarProps> = ({setSearch, setFiltered}) => {
     return (
         <form>
-            <input type={"text"} placeholder={"Search for products"} />
-            <br/>
+            <input type={"text"} style={{minWidth: "300px"}} placeholder={"Search for products"} onChange={(e) => {setSearch(e.target.value)}} />
+            <br />
             <p>
-                <input type={"checkbox"} />
+                <input type={"checkbox"} onChange={(e) => {setFiltered(e.target.checked)}} />
                 {" "}
                 Hide out-of-stock items.
             </p>
@@ -40,7 +55,7 @@ const SearchBar: React.FC = () => {
     );
 };
 
-const ProductTable: React.FC<{products: Product[]}> = ({products}) => {
+const ProductTable: React.FC<ProductTableProps> = ({products, search, filtered}) => {
 
     const tableRows: ReactChild[] = [];
     let lastCategory: string | null = null;
@@ -51,14 +66,19 @@ const ProductTable: React.FC<{products: Product[]}> = ({products}) => {
                 <ProductCategoryRow category={product.category} key={product.category} />
             );
         }
-        tableRows.push(
-            <ProductRow product={product} key={product.name} />
-        );
+        if (filtered && !product.stocked) {
+            return;
+        }
+        if (search.length === 0 || product.name.toLowerCase().includes(search.toLowerCase())) {
+            tableRows.push(
+                <ProductRow product={product} key={product.name} />
+            );
+        }
         lastCategory = product.category;
     });
 
     return (
-        <table>
+        <table style={{minWidth: "300px"}}>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -75,7 +95,9 @@ const ProductTable: React.FC<{products: Product[]}> = ({products}) => {
 const ProductCategoryRow: React.FC<{category: string}> = ({category}) => {
     return (
         <tr>
-            <th colSpan={2}>{category}</th>
+            <th colSpan={2}>
+                {category}
+            </th>
         </tr>
     );
 };
@@ -83,8 +105,14 @@ const ProductCategoryRow: React.FC<{category: string}> = ({category}) => {
 const ProductRow: React.FC<{product: Product}> = ({product}) => {
     return (
         <tr>
-            <td><span style={{color: product.stocked ? "black" : "red"}}>{product.name}</span></td>
-            <td>{product.price}</td>
+            <td>
+                <span style={{color: product.stocked ? "black" : "red"}}>
+                    {product.name}
+                </span>
+            </td>
+            <td>
+                {product.price}
+            </td>
         </tr>
     );
 };
