@@ -19,7 +19,7 @@ const PRODUCTS: Product[] = [
 
 const FilterableProductTable: React.FC = () => {
     return (
-        <div>
+        <div style={{textAlign: "left"}}>
             <SearchBar />
             <ProductTable products={PRODUCTS}/>
         </div>
@@ -42,12 +42,19 @@ const SearchBar: React.FC = () => {
 
 const ProductTable: React.FC<{products: Product[]}> = ({products}) => {
 
-    const productRows: ReactChild[] = [];
+    const tableRows: ReactChild[] = [];
+    let lastCategory: string | null = null;
 
     products.forEach((product, index) => {
-        productRows.push(
-            <ProductRow product={product} key={product.name}/>
+        if (lastCategory !== product.category) {
+            tableRows.push(
+                <ProductCategoryRow category={product.category} key={product.category} />
+            );
+        }
+        tableRows.push(
+            <ProductRow product={product} key={product.name} />
         );
+        lastCategory = product.category;
     });
 
     return (
@@ -59,24 +66,24 @@ const ProductTable: React.FC<{products: Product[]}> = ({products}) => {
                 </tr>
             </thead>
             <tbody>
-                {productRows}
+                {tableRows}
             </tbody>
         </table>
     );
 };
 
-const ProductCategoryRow: React.FC = () => {
+const ProductCategoryRow: React.FC<{category: string}> = ({category}) => {
     return (
-        <div>
-
-        </div>
+        <tr>
+            <th colSpan={2}>{category}</th>
+        </tr>
     );
 };
 
 const ProductRow: React.FC<{product: Product}> = ({product}) => {
     return (
         <tr>
-            <td>{product.name}</td>
+            <td><span style={{color: product.stocked ? "black" : "red"}}>{product.name}</span></td>
             <td>{product.price}</td>
         </tr>
     );
