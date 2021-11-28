@@ -28,9 +28,9 @@ const FilterableProductTable: React.FC = () => {
 
 const SearchBar: React.FC = () => {
     return (
-        <div>
-
-        </div>
+        <form>
+            <input type={"text"} placeholder={"Search for products"}/>
+        </form>
     );
 };
 
@@ -58,15 +58,14 @@ const ProductRow: React.FC = () => {
     );
 };
 
-const Something: NextPage = () => {
+const FilterableProductTablePage: NextPage = () => {
 
     return (
-        <div>
-            <h1>Something</h1>
-            <p>something...</p>
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <h1>Filterable Product Table</h1>
             <FilterableProductTable />
         </div>
     );
 }
 
-export default Something;
+export default FilterableProductTablePage;
