@@ -15,7 +15,9 @@ type ProductTableProps = {
 }
 
 type SearchBarProps = {
+    search: string,
     setSearch: React.Dispatch<React.SetStateAction<string>>,
+    filtered: boolean,
     setFiltered: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -35,19 +37,29 @@ const FilterableProductTable: React.FC = () => {
 
     return (
         <div style={{textAlign: "left"}}>
-            <SearchBar setSearch={setSearch} setFiltered={setFiltered}/>
-            <ProductTable products={PRODUCTS} search={search} filtered={filtered}/>
+            <SearchBar search={search} setSearch={setSearch} filtered={filtered} setFiltered={setFiltered} />
+            <ProductTable products={PRODUCTS} search={search} filtered={filtered} />
         </div>
     );
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({setSearch, setFiltered}) => {
+const SearchBar: React.FC<SearchBarProps> = ({search, setSearch, filtered, setFiltered}) => {
     return (
         <form>
-            <input type={"text"} style={{minWidth: "300px"}} placeholder={"Search for products"} onChange={(e) => {setSearch(e.target.value)}} />
+            <input
+                type={"text"}
+                style={{minWidth: "300px"}}
+                placeholder={"Search for products"}
+                onChange={(e) => {setSearch(e.target.value)}}
+                value={search}
+            />
             <br />
             <p>
-                <input type={"checkbox"} onChange={(e) => {setFiltered(e.target.checked)}} />
+                <input
+                    type={"checkbox"}
+                    onChange={(e) => {setFiltered(e.target.checked)}}
+                    checked={filtered}
+                />
                 {" "}
                 Hide out-of-stock items.
             </p>
@@ -60,7 +72,7 @@ const ProductTable: React.FC<ProductTableProps> = ({products, search, filtered})
     const tableRows: ReactChild[] = [];
     let lastCategory: string | null = null;
 
-    products.forEach((product, index) => {
+    products.forEach((product) => {
         if (lastCategory !== product.category) {
             tableRows.push(
                 <ProductCategoryRow category={product.category} key={product.category} />
