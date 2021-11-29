@@ -22,12 +22,12 @@ type SearchBarProps = {
 }
 
 const PRODUCTS: Product[] = [
-    {category: 'Sporting Goods', price: '£49.99', stocked: true, name: 'Football'},
-    {category: 'Sporting Goods', price: '£19.99', stocked: true, name: 'Badminton Racket'},
-    {category: 'Sporting Goods', price: '£29.99', stocked: false, name: 'Basketball'},
-    {category: 'Electronics', price: '£99.99', stocked: true, name: 'Laptop'},
-    {category: 'Electronics', price: '£399.99', stocked: false, name: 'iPhone 13'},
-    {category: 'Electronics', price: '£199.99', stocked: true, name: 'Pixel 5'}
+    { category: 'Sporting Goods', price: '£49.99', stocked: true, name: 'Football' },
+    { category: 'Sporting Goods', price: '£19.99', stocked: true, name: 'Badminton Racket' },
+    { category: 'Sporting Goods', price: '£29.99', stocked: false, name: 'Basketball' },
+    { category: 'Electronics', price: '£99.99', stocked: true, name: 'Laptop' },
+    { category: 'Electronics', price: '£399.99', stocked: false, name: 'iPhone 13' },
+    { category: 'Electronics', price: '£199.99', stocked: true, name: 'Pixel 5' }
 ];
 
 const FilterableProductTable: React.FC = () => {
