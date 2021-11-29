@@ -54,8 +54,6 @@ const ProgressiveForm: React.FC = () => {
 
     return (
         <div>
-            <p>answers = {answers}</p>
-            <p>current = {current}, answer = {answers[current-1]}</p>
             <form>
                 <p>{QUESTIONS[current-1].question}</p>
                 <input type={"text"} placeholder={"enter your answer"} value={answers[current-1]} onChange={handleAnswerChange} />
