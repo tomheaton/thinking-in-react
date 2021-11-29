@@ -9,8 +9,8 @@ type ControlProps = {
 
 type QuestionFormProps = {
     question: string,
-    answer: string,
-    setAnswer: React.Dispatch<React.SetStateAction<string>>
+    answers: string,
+    setAnswers: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 type Question = {
@@ -23,15 +23,6 @@ const QUESTIONS: Question[] = [
     { question: "What colour is a banana?", type: "test" }
 ]
 
-const QuestionForm: React.FC<QuestionFormProps> = ({question, answer, setAnswer}) => {
-
-    return (
-        <form>
-            <p>{question}</p>
-            <input type={"text"} placeholder={"enter your answer"} value={answer} onChange={(e) => {setAnswer(e.target.value)}}/>
-        </form>
-    );
-}
 const Controls: React.FC<ControlProps> = ({current, setCurrent, total}) => {
 
     const handleBack = () => {
@@ -56,12 +47,18 @@ const Controls: React.FC<ControlProps> = ({current, setCurrent, total}) => {
 const ProgressiveForm: React.FC = () => {
 
     const [current, setCurrent] = useState<number>(1);
+    const [answers, setAnswers] = useState<string[]>([]);
 
     const total = QUESTIONS.length;
 
     return (
         <div>
-            <QuestionForm question={QUESTIONS[current-1].question}/>
+            <p>answers = {answers}</p>
+            <p>current = {current}, answer = {answers[current-1]}</p>
+            <form>
+                <p>{QUESTIONS[current-1].question}</p>
+                <input type={"text"} placeholder={"enter your answer"} onChange={(e) => {setAnswers([...answers, e.target.value])}}/>
+            </form>
             <br />
             <Controls current={current} setCurrent={setCurrent} total={total} />
         </div>
