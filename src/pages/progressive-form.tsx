@@ -51,13 +51,21 @@ const ProgressiveForm: React.FC = () => {
 
     const total = QUESTIONS.length;
 
+    const handleAnswerChange = (e: any) => {
+        let _answer = e.target.value;
+        let _answers = [...answers];
+        _answers[current-1] = _answer;
+        setAnswers(_answers);
+    }
+
     return (
         <div>
             <p>answers = {answers}</p>
             <p>current = {current}, answer = {answers[current-1]}</p>
             <form>
                 <p>{QUESTIONS[current-1].question}</p>
-                <input type={"text"} placeholder={"enter your answer"} onChange={(e) => {setAnswers([...answers, e.target.value])}}/>
+                {/*<input type={"text"} placeholder={"enter your answer"} onChange={(e) => {setAnswers([...answers, e.target.value])}} />*/}
+                <input type={"text"} placeholder={"enter your answer"} value={answers[current-1]} onChange={handleAnswerChange} />
             </form>
             <br />
             <Controls current={current} setCurrent={setCurrent} total={total} />
