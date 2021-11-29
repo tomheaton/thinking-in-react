@@ -44,6 +44,7 @@ const FilterableProductTable: React.FC = () => {
 };
 
 const SearchBar: React.FC<SearchBarProps> = ({search, setSearch, filtered, setFiltered}) => {
+
     return (
         <form>
             <input
@@ -105,6 +106,7 @@ const ProductTable: React.FC<ProductTableProps> = ({products, search, filtered})
 };
 
 const ProductCategoryRow: React.FC<{category: string}> = ({category}) => {
+
     return (
         <tr>
             <th colSpan={2}>
@@ -115,6 +117,7 @@ const ProductCategoryRow: React.FC<{category: string}> = ({category}) => {
 };
 
 const ProductRow: React.FC<{product: Product}> = ({product}) => {
+
     return (
         <tr>
             <td>
@@ -130,6 +133,7 @@ const ProductRow: React.FC<{product: Product}> = ({product}) => {
 };
 
 const FilterableProductTablePage: NextPage = () => {
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h1>Filterable Product Table</h1>

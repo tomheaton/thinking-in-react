@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {NextPage} from "next";
 
 const StatusMessage: React.FC<{message: string}> = ({message}) => {
+
     return (
         message.length > 0 ? (
             <div>
@@ -38,6 +39,7 @@ const Login: React.FC = () => {
 }
 
 const LoginPage: NextPage = () => {
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <h1>Login</h1>
