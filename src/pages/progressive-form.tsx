@@ -7,12 +7,6 @@ type ControlProps = {
     total: number
 }
 
-type QuestionFormProps = {
-    question: string,
-    answers: string,
-    setAnswers: React.Dispatch<React.SetStateAction<string[]>>
-}
-
 type Question = {
     question: string
     type: string
@@ -64,7 +58,6 @@ const ProgressiveForm: React.FC = () => {
             <p>current = {current}, answer = {answers[current-1]}</p>
             <form>
                 <p>{QUESTIONS[current-1].question}</p>
-                {/*<input type={"text"} placeholder={"enter your answer"} onChange={(e) => {setAnswers([...answers, e.target.value])}} />*/}
                 <input type={"text"} placeholder={"enter your answer"} value={answers[current-1]} onChange={handleAnswerChange} />
             </form>
             <br />
