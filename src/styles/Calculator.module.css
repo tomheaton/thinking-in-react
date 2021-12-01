@@ -1,0 +1,19 @@
+.calculator tr, .calculator td {
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    border: solid red 1px;
+}
+
+.data {
+    border: solid blue 1px;
+    font-size: 20px;
+    width: 100%;
+    text-align: end;
+}
+
+.calculator button {
+    height: 60px;
+    width: 60px;
+    border: solid green 1px;
+}
