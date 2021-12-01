@@ -14,7 +14,8 @@ type Question = {
 
 const QUESTIONS: Question[] = [
     { question: "What is an apple?", type: "test" },
-    { question: "What colour is a banana?", type: "test" }
+    { question: "What colour is a banana?", type: "test" },
+    { question: "What is gonk?", type: "test" }
 ]
 
 const Controls: React.FC<ControlProps> = ({current, setCurrent, total}) => {
